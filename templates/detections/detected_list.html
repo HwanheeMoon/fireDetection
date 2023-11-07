@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+{% if list %}
+    <ul>
+    {% for question in list %}
+        <li><a href="/detections/{{ question.Position }}/">{{ question.Position }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>카메라가 없습니다.</p>
+{% endif %}
