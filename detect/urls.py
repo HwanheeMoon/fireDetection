@@ -3,6 +3,6 @@ from detect import views
 
 
 urlpatterns = [
-    path('', views.index),
+    path('main/<Position>/', views.index),
     path('<Position>/', views.video_stream),
 ]
