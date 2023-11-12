@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <title>Fire detect</title>
+
+</head>
+<body>
+    <h1>Detecting CCTV.</h1>
+    <div style="float:left;">
+        <ul>
+            <img src="/detect/bus/"width="1080" height="640">
+            
+        </ul>
+    </div>
+    
+    <div style="float:right;">
+
+        <textarea id = list rows="30" cols="70" style="color: red; font-weight: bold;" readonly></textarea>
+
+        <button id="clear-button">리스트 지우기</button>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script>
+        const clearButton = document.getElementById('clear-button');
+        clearButton.addEventListener('click', function() {
+            const detectList = document.getElementById('list');
+            detectList.value = ''; // 텍스트 박스 내용을 지웁니다.
+        });
+
+        function updateDetectionList() {
+            $.ajax({
+                url: '/get_data/', // 검출 리스트를 가져올 URL
+                success: function(json) {
+                    // 검출 리스트를 텍스트 박스에 추가
+                    const detectList = document.getElementById('list');
+                    detectList.value += json;
+                }
+            });
+        }
+
+        // 일정 간격으로 검출 리스트 업데이트
+        setInterval(updateDetectionList, 3000); // 3초마다 업데이트 (원하는 간격으로 설정)
+
+        </script>
+    </div>
+
+
+</body>
