@@ -10,14 +10,18 @@ def index(request):
     return render(request, "detect/detected_list.html")
 
 def get_data(request):
+    global latest
     detection_times = detected_log.objects.all()
     detect_list = []
 
     for t in detection_times:
-        if t.Count == 0:
-            detect_list.append(f"\n {t.Date} 화재가 감지됨 !!!")
-        else:
-            detect_list.append(f"\n {t.Date} {t.Count} 프레임 동안 감지됨")
+        print(t.id, latest)
+        if t.id > latest:
+            latest = t.id
+            if t.Count == 0:
+                detect_list.append(f"\n {t.Date} 화재가 감지됨 !!!")
+            else:
+                detect_list.append(f"\n {t.Date} {t.Count} 프레임 동안 감지됨")
 
     return HttpResponse(detect_list)
 
