@@ -5,9 +5,9 @@ from testVid import generate_frames
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
-
-def index(request):
-    return render(request, "detect/detected_list.html")
+latest = 0
+def index(request, Position):
+    return render(request, "detect/detected_list.html",{'Position' : Position})
 
 def get_data(request):
     global latest
@@ -25,7 +25,7 @@ def get_data(request):
 
     return HttpResponse(detect_list)
 
-def video_stream(request,Position):
+def video_stream(request, Position):
     response = StreamingHttpResponse(generate_frames(Position) ,content_type='multipart/x-mixed-replace; boundary=frame')
     if response:
         return response
